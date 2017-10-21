@@ -6,18 +6,24 @@
 package model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author thielke
  */
+@Entity
 public class OrdermServico {
 
+    @Id
     private int id;
     private int km;
     private Date entrada;
     private Date saida;
     private boolean pago;
+    @ManyToOne
     private Veiculo veiculo;
 
     public OrdermServico() {

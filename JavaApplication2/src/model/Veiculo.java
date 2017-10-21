@@ -5,17 +5,25 @@
  */
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author thielke
  */
+@Entity
 public class Veiculo {
 
+    @Id
     private int id;
     private String modelo;
     private String cor;
     private String ano;
+    @ManyToOne
     private MarcaVeiculo marcaVeiculo;
+    @ManyToOne
     private Cliente cliente;
 
     public Veiculo() {

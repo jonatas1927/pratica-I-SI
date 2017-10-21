@@ -6,13 +6,18 @@
 package model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author thielke
  */
+@Entity
 public class Produto {
 
+    @Id
     private int id;
     private String codigoOriginal;
     private String descricao;
@@ -20,6 +25,7 @@ public class Produto {
     private double custo;
     private Date ultimaAlteracao;
     private boolean ativo;
+    @ManyToOne
     private MarcaProduto marca;
 
     public Produto() {

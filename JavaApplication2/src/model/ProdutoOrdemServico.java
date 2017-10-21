@@ -5,14 +5,22 @@
  */
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author thielke
  */
+@Entity
 public class ProdutoOrdemServico {
 
+    @Id
     private int id;
+    @ManyToOne
     private Produto produto;
+    @ManyToOne
     private OrdermServico ordemServico;
     private double custo;
     private double quantidade;

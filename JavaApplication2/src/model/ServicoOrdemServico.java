@@ -5,16 +5,24 @@
  */
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author thielke
  */
+@Entity
 public class ServicoOrdemServico {
 
+    @Id
     private int id;
     private String tempo;
     private double valor;
+    @ManyToOne
     private Servico servico;
+    @ManyToOne
     private OrdermServico ordemServico;
 
     public ServicoOrdemServico() {

@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,8 +13,10 @@ import java.util.Date;
  *
  * @author thielke
  */
+@Entity
 public class Servico {
 
+    @Id
     private int id;
     private String descricao;
     private double valor;
