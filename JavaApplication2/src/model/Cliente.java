@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 @Entity
 public class Cliente {
 
+    @Id
     private int id;
     private String nome;
     private String endereco;
