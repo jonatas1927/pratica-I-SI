@@ -23,7 +23,7 @@ public class ServicoOrdemServico {
     @ManyToOne
     private Servico servico;
     @ManyToOne
-    private OrdermServico ordemServico;
+    private OrdemServico ordemServico;
 
     public ServicoOrdemServico() {
     }
@@ -60,11 +60,11 @@ public class ServicoOrdemServico {
         this.servico = servico;
     }
 
-    public OrdermServico getOrdemServico() {
+    public OrdemServico getOrdemServico() {
         return ordemServico;
     }
 
-    public void setOrdemServico(OrdermServico ordemServico) {
+    public void setOrdemServico(OrdemServico ordemServico) {
         this.ordemServico = ordemServico;
     }
 

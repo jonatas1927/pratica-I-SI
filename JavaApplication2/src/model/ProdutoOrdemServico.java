@@ -21,7 +21,7 @@ public class ProdutoOrdemServico {
     @ManyToOne
     private Produto produto;
     @ManyToOne
-    private OrdermServico ordemServico;
+    private OrdemServico ordemServico;
     private double custo;
     private double quantidade;
     private double precoProduto;
@@ -45,11 +45,11 @@ public class ProdutoOrdemServico {
         this.produto = produto;
     }
 
-    public OrdermServico getOrdemServico() {
+    public OrdemServico getOrdemServico() {
         return ordemServico;
     }
 
-    public void setOrdemServico(OrdermServico ordemServico) {
+    public void setOrdemServico(OrdemServico ordemServico) {
         this.ordemServico = ordemServico;
     }
 
