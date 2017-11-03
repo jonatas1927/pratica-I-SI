@@ -1,9 +1,11 @@
 package controller;
 
+import model.ServicoOrdemServico;
+
 /**
  *
  * @author Dionatan
  */
-public class ServicoOrdemServicoDAO {
+public class ServicoOrdemServicoDAO extends generic<ServicoOrdemServico> {
     
 }

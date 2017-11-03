@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
  * @author thielke
  */
 @Entity
-public class OrdermServico {
+public class OrdemServico {
 
     @Id
     private int id;
@@ -26,7 +26,7 @@ public class OrdermServico {
     @ManyToOne
     private Veiculo veiculo;
 
-    public OrdermServico() {
+    public OrdemServico() {
     }
 
     public int getId() {

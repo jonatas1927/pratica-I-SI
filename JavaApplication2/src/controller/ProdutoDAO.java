@@ -1,9 +1,11 @@
 package controller;
 
+import model.Produto;
+
 /**
  *
  * @author Dionatan
  */
-public class ProdutoDAO {
+public class ProdutoDAO extends generic<Produto> {
     
 }

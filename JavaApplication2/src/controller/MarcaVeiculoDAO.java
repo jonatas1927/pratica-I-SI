@@ -1,9 +1,7 @@
 package controller;
 
-/**
- *
- * @author Dionatan
- */
-public class MarcaVeiculoDAO {
-    
+import model.MarcaVeiculo;
+
+public class MarcaVeiculoDAO extends generic<MarcaVeiculo> {
+
 }
