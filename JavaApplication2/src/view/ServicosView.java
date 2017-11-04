@@ -3,6 +3,8 @@ package view;
 import controller.ServicoDAO;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import model.Cliente;
+import model.MarcaVeiculo;
 import model.Servico;
 
 /**
@@ -76,6 +78,11 @@ public class ServicosView extends javax.swing.JFrame {
         lblValorServico.setText("Valor:");
 
         btnExcluirServico.setText("Excluir");
+        btnExcluirServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirServicoActionPerformed(evt);
+            }
+        });
 
         btnSalvarServico.setText("Salvar Alterações");
 
@@ -166,6 +173,18 @@ public class ServicosView extends javax.swing.JFrame {
             System.out.println(a);
         }
     }//GEN-LAST:event_btnIncluirServicoActionPerformed
+
+    private void btnExcluirServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirServicoActionPerformed
+        if (tblServicos.getSelectedRowCount() > 0) {
+            servico.setId( (Integer) tblServicos.getModel().getValueAt(tblServicos.getSelectedRow(), 0));
+            
+            servico.setDescricao(tblServicos.getModel().getValueAt(tblServicos.getSelectedRow(), 1).toString());
+            servico.setValor( (Double) tblServicos.getModel().getValueAt(tblServicos.getSelectedRow(), 2));
+            DAO.delete(servico);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um Serviço para Excluir!");
+        }
+    }//GEN-LAST:event_btnExcluirServicoActionPerformed
 
     public static void main(String args[]) {
 
