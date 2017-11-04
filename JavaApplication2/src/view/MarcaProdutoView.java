@@ -16,6 +16,7 @@ import model.MarcaProduto;
 public class MarcaProdutoView extends javax.swing.JFrame {
 
     MarcaProdutoDAO DAO = new MarcaProdutoDAO();
+    MarcaProduto mp = new MarcaProduto();
 
     /**
      * Creates new form MarcaProduto
@@ -56,8 +57,18 @@ public class MarcaProdutoView extends javax.swing.JFrame {
         lblCodigoMarcaProduto.setText("Código:");
 
         btnExcluirMarcaProduto.setText("Excluir");
+        btnExcluirMarcaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirMarcaProdutoActionPerformed(evt);
+            }
+        });
 
         btnAlterarMarcaProduto.setText("Alterar");
+        btnAlterarMarcaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarMarcaProdutoActionPerformed(evt);
+            }
+        });
 
         btnIncluirMarcaProduto.setText("Incluir");
         btnIncluirMarcaProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -174,12 +185,12 @@ public class MarcaProdutoView extends javax.swing.JFrame {
 
 //        System.out.println(btnMarcaProdutoAtiva.isSelected());
 //        System.out.println(nome);
-        MarcaProduto mp = new MarcaProduto();
+//        MarcaProduto mp = new MarcaProduto();
         mp.setDescricao(nome);
         mp.setAtivo(ativa);
         mp.setCreated(new Date());
-        boolean a = DAO.save(mp);
-        System.out.println(a);
+        DAO.save(mp);
+//        System.out.println(a);
     }//GEN-LAST:event_btnIncluirMarcaProdutoActionPerformed
 
     private void txtDescricaoMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoMarcaProdutoActionPerformed
@@ -189,6 +200,24 @@ public class MarcaProdutoView extends javax.swing.JFrame {
     private void btnMarcaProdutoAtivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaProdutoAtivaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMarcaProdutoAtivaActionPerformed
+
+    private void btnAlterarMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarMarcaProdutoActionPerformed
+        // TODO add your handling code here:
+        mp.setAtivo(btnMarcaProdutoAtiva.isSelected());
+        mp.setDescricao(txtDescricaoMarcaProduto.getText());
+        mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
+        if (DAO.update(mp)) {
+            System.out.println("alterado com sucesso");
+        };
+    }//GEN-LAST:event_btnAlterarMarcaProdutoActionPerformed
+
+    private void btnExcluirMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMarcaProdutoActionPerformed
+        // TODO add your handling code here:
+        mp.setAtivo(btnMarcaProdutoAtiva.isSelected());
+        mp.setDescricao(txtDescricaoMarcaProduto.getText());
+        mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
+        DAO.delete(mp);
+    }//GEN-LAST:event_btnExcluirMarcaProdutoActionPerformed
 
     /**
      * @param args the command line arguments
