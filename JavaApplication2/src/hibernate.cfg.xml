@@ -53,11 +53,11 @@ Contributor(s):
     <mapping class="model.EstoqueProduto"/>
     <mapping class="model.MarcaProduto"/>
     <mapping class="model.MarcaVeiculo"/>
-    <mapping class="model.OrdermServico"/>
     <mapping class="model.Produto"/>
     <mapping class="model.ProdutoOrdemServico"/>
     <mapping class="model.Servico"/>
     <mapping class="model.ServicoOrdemServico"/>
     <mapping class="model.Veiculo"/>
+    <mapping class="model.OrdemServico"/>
   </session-factory>
 </hibernate-configuration>

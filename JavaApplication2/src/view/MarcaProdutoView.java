@@ -5,16 +5,22 @@
  */
 package view;
 
+import controller.MarcaProdutoDAO;
+import java.util.Date;
+import model.MarcaProduto;
+
 /**
  *
  * @author Dionatan
  */
-public class MarcaProduto extends javax.swing.JFrame {
+public class MarcaProdutoView extends javax.swing.JFrame {
+
+    MarcaProdutoDAO DAO = new MarcaProdutoDAO();
 
     /**
      * Creates new form MarcaProduto
      */
-    public MarcaProduto() {
+    public MarcaProdutoView() {
         initComponents();
     }
 
@@ -41,6 +47,11 @@ public class MarcaProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtCodigoMarcaProduto.setEditable(false);
+        txtCodigoMarcaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoMarcaProdutoActionPerformed(evt);
+            }
+        });
 
         lblCodigoMarcaProduto.setText("Código:");
 
@@ -49,6 +60,17 @@ public class MarcaProduto extends javax.swing.JFrame {
         btnAlterarMarcaProduto.setText("Alterar");
 
         btnIncluirMarcaProduto.setText("Incluir");
+        btnIncluirMarcaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirMarcaProdutoActionPerformed(evt);
+            }
+        });
+
+        txtDescricaoMarcaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescricaoMarcaProdutoActionPerformed(evt);
+            }
+        });
 
         tblMarcaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,6 +100,11 @@ public class MarcaProduto extends javax.swing.JFrame {
         lblDescricaoMarcaProduto.setText("Descrição:");
 
         btnMarcaProdutoAtiva.setText("Marca Ativa");
+        btnMarcaProdutoAtiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMarcaProdutoAtivaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,7 +130,6 @@ public class MarcaProduto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblCodigoMarcaProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(10, 10, 10)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtCodigoMarcaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,6 +163,33 @@ public class MarcaProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtCodigoMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoMarcaProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoMarcaProdutoActionPerformed
+
+    private void btnIncluirMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirMarcaProdutoActionPerformed
+        // TODO add your handling code here:
+        String nome = txtDescricaoMarcaProduto.getText();
+        boolean ativa = btnMarcaProdutoAtiva.isSelected();
+
+//        System.out.println(btnMarcaProdutoAtiva.isSelected());
+//        System.out.println(nome);
+        MarcaProduto mp = new MarcaProduto();
+        mp.setDescricao(nome);
+        mp.setAtivo(ativa);
+        mp.setCreated(new Date());
+        boolean a = DAO.save(mp);
+        System.out.println(a);
+    }//GEN-LAST:event_btnIncluirMarcaProdutoActionPerformed
+
+    private void txtDescricaoMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoMarcaProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescricaoMarcaProdutoActionPerformed
+
+    private void btnMarcaProdutoAtivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaProdutoAtivaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMarcaProdutoAtivaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -167,7 +220,7 @@ public class MarcaProduto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MarcaProduto().setVisible(true);
+                new MarcaProdutoView().setVisible(true);
             }
         });
     }
