@@ -6,17 +6,22 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author thielke
  */
 @Entity
+@SequenceGenerator(name = "servico_ordem_servico_seq", sequenceName = "servico_ordem_servico_seq", allocationSize = 1)
 public class ServicoOrdemServico {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "servico_ordem_servico_seq")
     private int id;
     private String tempo;
     private double valor;

@@ -6,17 +6,22 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author thielke
  */
 @Entity
+@SequenceGenerator(name = "veiculo_seq", sequenceName = "veiculo_seq", allocationSize = 1)
 public class Veiculo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "veiculo_seq")
     private int id;
     private String modelo;
     private String cor;

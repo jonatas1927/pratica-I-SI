@@ -26,10 +26,10 @@
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSalvarServico" min="-2" pref="117" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnIncluirServico" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAlterarServico" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnExcluirServico" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -93,7 +93,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnExcluirServico" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnIncluirServico" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnAlterarServico" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalvarServico" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="179" max="32767" attributes="0"/>
@@ -174,15 +174,18 @@
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAlterarServico">
+    <Component class="javax.swing.JButton" name="btnSalvarServico">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Alterar"/>
+        <Property name="text" type="java.lang.String" value="Salvar Altera&#xe7;&#xf5;es"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnIncluirServico">
       <Properties>
         <Property name="text" type="java.lang.String" value="Incluir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIncluirServicoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

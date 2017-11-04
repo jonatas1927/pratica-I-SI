@@ -1,7 +1,10 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,9 +16,11 @@ import javax.persistence.Id;
  * @author thielke
  */
 @Entity
+@SequenceGenerator(name = "cliente_seq", sequenceName = "cliente_seq", allocationSize = 1)
 public class Cliente {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_seq")
     private int id;
     private String nome;
     private String endereco;

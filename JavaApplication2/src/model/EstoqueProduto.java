@@ -7,17 +7,22 @@ package model;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author thielke
  */
 @Entity
+@SequenceGenerator(name = "estoque_produto_seq", sequenceName = "estoque_produto_seq", allocationSize = 1)
 public class EstoqueProduto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_produto_seq")
     private int id;
     private double quantidade;
     private Date data;

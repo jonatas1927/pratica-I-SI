@@ -194,7 +194,7 @@ public class MarcaProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIncluirMarcaProdutoActionPerformed
 
     private void txtDescricaoMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoMarcaProdutoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtDescricaoMarcaProdutoActionPerformed
 
     private void btnMarcaProdutoAtivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaProdutoAtivaActionPerformed
@@ -202,7 +202,6 @@ public class MarcaProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMarcaProdutoAtivaActionPerformed
 
     private void btnAlterarMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarMarcaProdutoActionPerformed
-        // TODO add your handling code here:
         mp.setAtivo(btnMarcaProdutoAtiva.isSelected());
         mp.setDescricao(txtDescricaoMarcaProduto.getText());
         mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
