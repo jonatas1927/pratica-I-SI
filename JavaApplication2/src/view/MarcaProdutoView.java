@@ -7,6 +7,8 @@ package view;
 
 import controller.MarcaProdutoDAO;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.MarcaProduto;
 
 /**
@@ -15,6 +17,7 @@ import model.MarcaProduto;
  */
 public class MarcaProdutoView extends javax.swing.JFrame {
 
+    DefaultTableModel model;
     MarcaProdutoDAO DAO = new MarcaProdutoDAO();
     MarcaProduto mp = new MarcaProduto();
 
@@ -23,6 +26,8 @@ public class MarcaProdutoView extends javax.swing.JFrame {
      */
     public MarcaProdutoView() {
         initComponents();
+        model = (DefaultTableModel) tblMarcaProduto.getModel();
+        updateTable();
     }
 
     /**
@@ -70,7 +75,7 @@ public class MarcaProdutoView extends javax.swing.JFrame {
             }
         });
 
-        btnIncluirMarcaProduto.setText("Incluir");
+        btnIncluirMarcaProduto.setText("Salvar");
         btnIncluirMarcaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIncluirMarcaProdutoActionPerformed(evt);
@@ -173,28 +178,44 @@ public class MarcaProdutoView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void updateTable() {
+        model.setNumRows(0);
+        for (MarcaProduto m : DAO.getAll("MarcaProduto")) {
+            model.addRow(new String[]{"" + m.getId(), m.getDescricao()});
+        }
+    }
     private void txtCodigoMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoMarcaProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoMarcaProdutoActionPerformed
 
     private void btnIncluirMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirMarcaProdutoActionPerformed
         // TODO add your handling code here:
-        String nome = txtDescricaoMarcaProduto.getText();
-        boolean ativa = btnMarcaProdutoAtiva.isSelected();
-
-//        System.out.println(btnMarcaProdutoAtiva.isSelected());
-//        System.out.println(nome);
-//        MarcaProduto mp = new MarcaProduto();
-        mp.setDescricao(nome);
-        mp.setAtivo(ativa);
-        mp.setCreated(new Date());
-        DAO.save(mp);
+        if (txtDescricaoMarcaProduto.getText().length() > 0) {
+            String nome = txtDescricaoMarcaProduto.getText();
+            boolean ativa = btnMarcaProdutoAtiva.isSelected();
+            System.out.println(mp.getId());
+            if (mp.getId() > -1) {
+                mp.setDescricao(nome);
+                mp.setAtivo(ativa);
+                mp.setCreated(new Date());
+                DAO.save(mp);
+            } else {
+                mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
+                mp.setDescricao(nome);
+                mp.setAtivo(ativa);
+                DAO.update(mp);
+            }
+            txtDescricaoMarcaProduto.setText("");
+            btnMarcaProdutoAtiva.setSelected(false);
+            updateTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "É necessario preencher o campo de descrição!", null, 0);
+        }
 //        System.out.println(a);
     }//GEN-LAST:event_btnIncluirMarcaProdutoActionPerformed
 
     private void txtDescricaoMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoMarcaProdutoActionPerformed
-        
+
     }//GEN-LAST:event_txtDescricaoMarcaProdutoActionPerformed
 
     private void btnMarcaProdutoAtivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaProdutoAtivaActionPerformed
@@ -202,20 +223,20 @@ public class MarcaProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMarcaProdutoAtivaActionPerformed
 
     private void btnAlterarMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarMarcaProdutoActionPerformed
-        mp.setAtivo(btnMarcaProdutoAtiva.isSelected());
-        mp.setDescricao(txtDescricaoMarcaProduto.getText());
-        mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
-        if (DAO.update(mp)) {
-            System.out.println("alterado com sucesso");
-        };
+        Object codigo = tblMarcaProduto.getValueAt(tblMarcaProduto.getSelectedRow(), 0);
+        mp = DAO.findByID(Integer.parseInt(codigo.toString()), "MarcaProduto");
+//        System.out.println(codigo.toString());
+        txtCodigoMarcaProduto.setText("" + mp.getId());
+        txtDescricaoMarcaProduto.setText(mp.getDescricao());
+        btnMarcaProdutoAtiva.setSelected(mp.isAtivo());
     }//GEN-LAST:event_btnAlterarMarcaProdutoActionPerformed
 
     private void btnExcluirMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMarcaProdutoActionPerformed
         // TODO add your handling code here:
-        mp.setAtivo(btnMarcaProdutoAtiva.isSelected());
-        mp.setDescricao(txtDescricaoMarcaProduto.getText());
-        mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
+        Object codigo = tblMarcaProduto.getValueAt(tblMarcaProduto.getSelectedRow(), 0);
+        mp = DAO.findByID(Integer.parseInt(codigo.toString()), "MarcaProduto");
         DAO.delete(mp);
+        updateTable();
     }//GEN-LAST:event_btnExcluirMarcaProdutoActionPerformed
 
     /**

@@ -58,19 +58,23 @@ public abstract class generic<T> {
      * @param nameClass variable where say class
      * @return list with one row or zero
      */
-    public List<T> findByID(String id, String nameClass) {
+    public T findByID(Integer id, String nameClass) {
         session.getTransaction();
         Query q = session.createQuery("FROM " + nameClass + " WHERE id = :p1");
         q.setParameter("p1", id);
         List<T> list = q.list();
-        return list;
+//        return list;
+        return list.get(0);
     }
 
     public boolean delete(T obj) {
         try {
             session.getTransaction();
+            session.getTransaction().begin();
             session.delete(obj);
+            session.getTransaction().commit();
 //            session.close();
+
             return true;
         } catch (Error e) {
             return false;
@@ -87,11 +91,6 @@ public abstract class generic<T> {
         } catch (Error e) {
             return false;
         }
-    }
-
-    public int getNewId(String ClassName) {
-        session.getTransaction();
-        return 1;
     }
 
 }

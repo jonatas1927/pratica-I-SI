@@ -238,11 +238,11 @@ public class VeiculosView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Informe a Cor do Veículo!");
         } else {
             MarcaVeiculo marcaVeiculo = new MarcaVeiculo();
-            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(txtMarcaVeiculo.getText(), "MarcaVeiculo");
+//            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(txtMarcaVeiculo.getText(), "MarcaVeiculo");
             veiculo.setMarcaVeiculo(marcaVeiculo);
             veiculo.setModelo(txtModeloVeiculo.getText());
             Cliente cliente = new Cliente();
-            cliente = (Cliente) DAOCliente.findByID(txtClienteVeiculo.getText(), "Cliente");
+//            cliente = (Cliente) DAOCliente.findByID(txtClienteVeiculo.getText(), "Cliente");
             veiculo.setCliente(cliente);
             veiculo.setCor(txtCorVeiculo.getText());
             veiculo.setAno(txtAnoVeiculo.getText());
@@ -262,11 +262,11 @@ public class VeiculosView extends javax.swing.JFrame {
             veiculo.setId( (Integer) tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 0));
             
             MarcaVeiculo marcaVeiculo = new MarcaVeiculo();
-            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 1).toString(), "Marca");
+//            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 1).toString(), "Marca");
             veiculo.setMarcaVeiculo(marcaVeiculo);
             
             Cliente cliente = new Cliente();
-            cliente = (Cliente) DAOCliente.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 5).toString(), "Marca");
+//            cliente = (Cliente) DAOCliente.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 5).toString(), "Marca");
             veiculo.setCliente(cliente);
             
             veiculo.setModelo(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 2).toString());
@@ -293,11 +293,11 @@ public class VeiculosView extends javax.swing.JFrame {
         } else {
             veiculo.setId(Integer.parseInt(txtCodigoVeiculo.getText()));
             MarcaVeiculo marcaVeiculo = new MarcaVeiculo();
-            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(txtMarcaVeiculo.getText(), "MarcaVeiculo");
+//            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(txtMarcaVeiculo.getText(), "MarcaVeiculo");
             veiculo.setMarcaVeiculo(marcaVeiculo);
             veiculo.setModelo(txtModeloVeiculo.getText());
             Cliente cliente = new Cliente();
-            cliente = (Cliente) DAOCliente.findByID(txtClienteVeiculo.getText(), "Cliente");
+//            cliente = (Cliente) DAOCliente.findByID(txtClienteVeiculo.getText(), "Cliente");
             veiculo.setCliente(cliente);
             veiculo.setCor(txtCorVeiculo.getText());
             veiculo.setAno(txtAnoVeiculo.getText());
