@@ -4,6 +4,7 @@ import controller.ClienteDAO;
 import controller.MarcaVeiculoDAO;
 import controller.VeiculoDAO;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.MarcaProduto;
 import model.MarcaVeiculo;
@@ -15,13 +16,18 @@ import model.Veiculo;
  */
 public class VeiculosView extends javax.swing.JFrame {
 
+    DefaultTableModel model;
     VeiculoDAO DAO = new VeiculoDAO();
     MarcaVeiculoDAO DAOMarcaVeiculo = new MarcaVeiculoDAO();
     ClienteDAO DAOCliente = new ClienteDAO();
     Veiculo veiculo = new Veiculo();
-    
+    MarcaVeiculoDAO MDAO = new MarcaVeiculoDAO();
+
     public VeiculosView() {
         initComponents();
+        model = (DefaultTableModel) tblVeiculos.getModel();
+        loadMarcas();
+        updateTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +44,6 @@ public class VeiculosView extends javax.swing.JFrame {
         txtCodigoVeiculo = new javax.swing.JTextField();
         lblCodigoVeiculo = new javax.swing.JLabel();
         lblCorVeiculo = new javax.swing.JLabel();
-        txtMarcaVeiculo = new javax.swing.JTextField();
         txtCorVeiculo = new javax.swing.JTextField();
         btnIncluirVeiculo = new javax.swing.JButton();
         lblMarcaVeiculo = new javax.swing.JLabel();
@@ -48,7 +53,7 @@ public class VeiculosView extends javax.swing.JFrame {
         txtAnoVeiculo = new javax.swing.JTextField();
         btnExcluirVeiculo = new javax.swing.JButton();
         lblModeloVeiculo = new javax.swing.JLabel();
-        btnSelectMarcaVeiculo = new javax.swing.JButton();
+        jcbMarca = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,7 +106,7 @@ public class VeiculosView extends javax.swing.JFrame {
 
         lblCorVeiculo.setText("Cor:");
 
-        btnIncluirVeiculo.setText("Incluir");
+        btnIncluirVeiculo.setText("Alterar");
         btnIncluirVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIncluirVeiculoActionPerformed(evt);
@@ -112,7 +117,7 @@ public class VeiculosView extends javax.swing.JFrame {
 
         lblAnoVeiculo.setText("Ano:");
 
-        btnSalvarVeiculo.setText("Salvar Alterações");
+        btnSalvarVeiculo.setText("Salvar");
         btnSalvarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarVeiculoActionPerformed(evt);
@@ -128,7 +133,11 @@ public class VeiculosView extends javax.swing.JFrame {
 
         lblModeloVeiculo.setText("Modelo:");
 
-        btnSelectMarcaVeiculo.setText("...");
+        jcbMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMarcaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,15 +147,15 @@ public class VeiculosView extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(btnSalvarVeiculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvarVeiculo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnIncluirVeiculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluirVeiculo)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addGap(2, 2, 2))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
@@ -162,7 +171,7 @@ public class VeiculosView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblClienteVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtClienteVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtClienteVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSelectClienteVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -175,12 +184,10 @@ public class VeiculosView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtMarcaVeiculo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSelectMarcaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblSelectMarcaVeiculo)
-                                .addGap(130, 130, 130)
+                                .addGap(59, 59, 59)
                                 .addComponent(lblAnoVeiculo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAnoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -199,11 +206,10 @@ public class VeiculosView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMarcaVeiculo)
-                    .addComponent(txtMarcaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAnoVeiculo)
                     .addComponent(txtAnoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSelectMarcaVeiculo)
-                    .addComponent(lblSelectMarcaVeiculo))
+                    .addComponent(lblSelectMarcaVeiculo)
+                    .addComponent(jcbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblModeloVeiculo)
@@ -220,55 +226,65 @@ public class VeiculosView extends javax.swing.JFrame {
                     .addComponent(btnIncluirVeiculo)
                     .addComponent(btnSalvarVeiculo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                 .addGap(3, 3, 3))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public void clearInputs() {
+        txtClienteVeiculo.setText(null);
+        txtModeloVeiculo.setText(null);
+        txtCorVeiculo.setText(null);
+        txtCodigoVeiculo.setText(null);
+        jcbMarca.setSelectedItem(null);
+        txtAnoVeiculo.setText(null);
+    }
 
-    private void btnIncluirVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirVeiculoActionPerformed
-        if (txtMarcaVeiculo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe a Marca do Veículo!");
-        } else if (txtClienteVeiculo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o Cliente Responsável pelo Veículo!");
-        } else if (txtModeloVeiculo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o Modelo do Veículo!");
-        } else if (txtCorVeiculo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe a Cor do Veículo!");
-        } else {
-            MarcaVeiculo marcaVeiculo = new MarcaVeiculo();
-//            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(txtMarcaVeiculo.getText(), "MarcaVeiculo");
-            veiculo.setMarcaVeiculo(marcaVeiculo);
-            veiculo.setModelo(txtModeloVeiculo.getText());
-            Cliente cliente = new Cliente();
-//            cliente = (Cliente) DAOCliente.findByID(txtClienteVeiculo.getText(), "Cliente");
-            veiculo.setCliente(cliente);
-            veiculo.setCor(txtCorVeiculo.getText());
-            veiculo.setAno(txtAnoVeiculo.getText());
-            System.out.println(veiculo.getId());
-            System.out.println(veiculo.getMarcaVeiculo());
-            System.out.println(veiculo.getModelo());
-            System.out.println(veiculo.getCliente());
-            System.out.println(veiculo.getCor());
-            System.out.println(veiculo.getAno());
-            boolean a = DAO.save(veiculo);
-            System.out.println(a);
+    public void updateTable() {
+        model.setNumRows(0);
+        for (Veiculo m : DAO.getAll("Veiculo")) {
+            model.addRow(new String[]{"" + m.getId(),
+                m.getMarcaVeiculo().getDescricao(),
+                m.getModelo(),
+                m.getCor(),
+                m.getAno(),
+                m.getCliente().getNome()
+            });
         }
+        clearInputs();
+    }
+
+    private void loadMarcas() {
+        for (MarcaVeiculo m : MDAO.getAll("MarcaVeiculo")) {
+            jcbMarca.addItem(m.getDescricao());
+        }
+    }
+    private void btnIncluirVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirVeiculoActionPerformed
+
+        Object codigo = tblVeiculos.getValueAt(tblVeiculos.getSelectedRow(), 0);
+        veiculo = DAO.findByID(Integer.parseInt(codigo.toString()), "Veiculo");
+        txtClienteVeiculo.setText("" + veiculo.getCliente().getId());
+        txtModeloVeiculo.setText(veiculo.getModelo());
+        txtCorVeiculo.setText(veiculo.getCor());
+        txtCodigoVeiculo.setText("" + veiculo.getId());
+        jcbMarca.setSelectedItem(veiculo.getMarcaVeiculo().getDescricao());
+        txtAnoVeiculo.setText(veiculo.getAno());
+
     }//GEN-LAST:event_btnIncluirVeiculoActionPerformed
 
     private void btnExcluirVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirVeiculoActionPerformed
         if (tblVeiculos.getSelectedRowCount() > 0) {
-            veiculo.setId( (Integer) tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 0));
-            
+            veiculo.setId((Integer) tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 0));
+
             MarcaVeiculo marcaVeiculo = new MarcaVeiculo();
 //            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 1).toString(), "Marca");
             veiculo.setMarcaVeiculo(marcaVeiculo);
-            
+
             Cliente cliente = new Cliente();
 //            cliente = (Cliente) DAOCliente.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 5).toString(), "Marca");
             veiculo.setCliente(cliente);
-            
+
             veiculo.setModelo(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 2).toString());
             veiculo.setCor(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 3).toString());
             veiculo.setAno(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 4).toString());
@@ -279,10 +295,12 @@ public class VeiculosView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirVeiculoActionPerformed
 
     private void btnSalvarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarVeiculoActionPerformed
-        if (txtCodigoVeiculo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Não pode ser alterado pois não existe! O registro será Cadastrado!");
-            btnIncluirVeiculoActionPerformed(evt);
-        } else if (txtMarcaVeiculo.getText().isEmpty()) {
+        System.out.println("" + veiculo.getId());
+//        if (txtCodigoVeiculo.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Não pode ser alterado pois não existe! O registro será Cadastrado!");
+//            btnIncluirVeiculoActionPerformed(evt);
+//        } else 
+        if (jcbMarca.getSelectedItem().toString().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe a Marca do Veículo!");
         } else if (txtClienteVeiculo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o Cliente Responsável pelo Veículo!");
@@ -291,21 +309,39 @@ public class VeiculosView extends javax.swing.JFrame {
         } else if (txtCorVeiculo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe a Cor do Veículo!");
         } else {
-            veiculo.setId(Integer.parseInt(txtCodigoVeiculo.getText()));
+//            veiculo.setId(Integer.parseInt(txtCodigoVeiculo.getText()));
             MarcaVeiculo marcaVeiculo = new MarcaVeiculo();
-//            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(txtMarcaVeiculo.getText(), "MarcaVeiculo");
+            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByColum(jcbMarca.getSelectedItem().toString(), "descricao", "MarcaVeiculo");
             veiculo.setMarcaVeiculo(marcaVeiculo);
             veiculo.setModelo(txtModeloVeiculo.getText());
             Cliente cliente = new Cliente();
-//            cliente = (Cliente) DAOCliente.findByID(txtClienteVeiculo.getText(), "Cliente");
+            cliente = (Cliente) DAOCliente.findByID(Integer.parseInt(txtClienteVeiculo.getText()), "Cliente");
             veiculo.setCliente(cliente);
             veiculo.setCor(txtCorVeiculo.getText());
             veiculo.setAno(txtAnoVeiculo.getText());
-            if (DAO.update(veiculo)) {
-                System.out.println("Alterado com Sucesso");
-            };
+            if (veiculo.getId() > 0) {
+                if (DAO.update(veiculo)) {
+                    JOptionPane.showMessageDialog(null, "Atualizado com sucesso!", null, WIDTH);
+                    updateTable();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Houve um problema na atualização!", null, WIDTH);
+                }
+            } else {
+                if (DAO.save(veiculo)) {
+                    JOptionPane.showMessageDialog(null, "Atualizado com sucesso!", null, WIDTH);
+                    updateTable();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Houve um problema na atualização!", null, WIDTH);
+                }
+            }
+
         }
     }//GEN-LAST:event_btnSalvarVeiculoActionPerformed
+
+    private void jcbMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbMarcaActionPerformed
 
     public static void main(String args[]) {
 
@@ -318,16 +354,24 @@ public class VeiculosView extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VeiculosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VeiculosView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VeiculosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VeiculosView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VeiculosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VeiculosView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VeiculosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VeiculosView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -344,8 +388,8 @@ public class VeiculosView extends javax.swing.JFrame {
     private javax.swing.JButton btnIncluirVeiculo;
     private javax.swing.JButton btnSalvarVeiculo;
     private javax.swing.JButton btnSelectClienteVeiculo;
-    private javax.swing.JButton btnSelectMarcaVeiculo;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbMarca;
     private javax.swing.JLabel lblAnoVeiculo;
     private javax.swing.JLabel lblClienteVeiculo;
     private javax.swing.JLabel lblCodigoVeiculo;
@@ -359,7 +403,6 @@ public class VeiculosView extends javax.swing.JFrame {
     private javax.swing.JTextField txtClienteVeiculo;
     private javax.swing.JTextField txtCodigoVeiculo;
     private javax.swing.JTextField txtCorVeiculo;
-    private javax.swing.JTextField txtMarcaVeiculo;
     private javax.swing.JTextField txtModeloVeiculo;
     // End of variables declaration//GEN-END:variables
 }

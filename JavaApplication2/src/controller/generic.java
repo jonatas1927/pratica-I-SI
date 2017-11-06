@@ -85,12 +85,23 @@ public abstract class generic<T> {
         try {
 
             session.getTransaction();
+            session.getTransaction().begin();
             session.update(obj);
+            session.getTransaction().commit();
 //            session.close();
             return true;
         } catch (Error e) {
             return false;
         }
+    }
+
+    public T findByColum(String value, String Colum, String nameClass) {
+        session.getTransaction();
+        Query q = session.createQuery("FROM " + nameClass + " WHERE " + Colum + " = :p1");
+        q.setParameter("p1", value);
+        List<T> list = q.list();
+//        return list;
+        return list.get(0);
     }
 
 }

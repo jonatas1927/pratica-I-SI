@@ -1,8 +1,10 @@
 package view;
 
 import controller.ServicoDAO;
+import java.text.DecimalFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.MarcaVeiculo;
 import model.Servico;
@@ -13,11 +15,14 @@ import model.Servico;
  */
 public class ServicosView extends javax.swing.JFrame {
 
+    DefaultTableModel model;
     ServicoDAO DAO = new ServicoDAO();
     Servico servico = new Servico();
-    
+
     public ServicosView() {
         initComponents();
+        model = (DefaultTableModel) tblServicos.getModel();
+        updateTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -34,7 +39,7 @@ public class ServicosView extends javax.swing.JFrame {
         txtValorServico = new javax.swing.JTextField();
         btnExcluirServico = new javax.swing.JButton();
         btnSalvarServico = new javax.swing.JButton();
-        btnIncluirServico = new javax.swing.JButton();
+        btnAlterarServico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,12 +89,17 @@ public class ServicosView extends javax.swing.JFrame {
             }
         });
 
-        btnSalvarServico.setText("Salvar Alterações");
-
-        btnIncluirServico.setText("Incluir");
-        btnIncluirServico.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarServico.setText("Salvar");
+        btnSalvarServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncluirServicoActionPerformed(evt);
+                btnSalvarServicoActionPerformed(evt);
+            }
+        });
+
+        btnAlterarServico.setText("Alterar");
+        btnAlterarServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarServicoActionPerformed(evt);
             }
         });
 
@@ -103,7 +113,7 @@ public class ServicosView extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(btnSalvarServico, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIncluirServico)
+                        .addComponent(btnAlterarServico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluirServico))
                     .addGroup(layout.createSequentialGroup()
@@ -119,18 +129,17 @@ public class ServicosView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblCodigoServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(10, 10, 10)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtCodigoServico, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtDescricaoServico, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
-                        .addContainerGap())
+                            .addComponent(txtDescricaoServico, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblValorServico, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtValorServico, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +159,7 @@ public class ServicosView extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluirServico)
-                    .addComponent(btnIncluirServico)
+                    .addComponent(btnAlterarServico)
                     .addComponent(btnSalvarServico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
@@ -159,32 +168,59 @@ public class ServicosView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnIncluirServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirServicoActionPerformed
-        if (txtDescricaoServico.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe a Descrição do Serviço!");
-        } else if (txtValorServico.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o Valor do Serviço!");
-        } else {
-            servico.setDescricao(txtDescricaoServico.getText());
-            servico.setValor(Double.parseDouble(txtValorServico.getText()));
-            servico.setCreated(new Date());
-            boolean a = DAO.save(servico);
-            System.out.println(a);
+    public void updateTable() {
+        model.setNumRows(0);
+        for (Servico m : DAO.getAll("Servico")) {
+            String valor = Double.toString(m.getValor());
+            System.out.println("v: " + valor);
+            model.addRow(new String[]{"" + m.getId(), m.getDescricao()});
         }
-    }//GEN-LAST:event_btnIncluirServicoActionPerformed
+    }
+    private void btnAlterarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarServicoActionPerformed
+        Object codigo = tblServicos.getValueAt(tblServicos.getSelectedRow(), 0);
+        servico = DAO.findByID(Integer.parseInt(codigo.toString()), "Servico");
+        txtCodigoServico.setText(servico.getId() + "");
+        txtDescricaoServico.setText(servico.getDescricao());
+        txtValorServico.setText(servico.getValor() + "");
+    }//GEN-LAST:event_btnAlterarServicoActionPerformed
 
     private void btnExcluirServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirServicoActionPerformed
         if (tblServicos.getSelectedRowCount() > 0) {
-            servico.setId( (Integer) tblServicos.getModel().getValueAt(tblServicos.getSelectedRow(), 0));
-            
-            servico.setDescricao(tblServicos.getModel().getValueAt(tblServicos.getSelectedRow(), 1).toString());
-            servico.setValor( (Double) tblServicos.getModel().getValueAt(tblServicos.getSelectedRow(), 2));
+            Object codigo = tblServicos.getValueAt(tblServicos.getSelectedRow(), 0);
+            servico = DAO.findByID(Integer.parseInt(codigo.toString()), "Servico");
             DAO.delete(servico);
+            updateTable();
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um Serviço para Excluir!");
         }
     }//GEN-LAST:event_btnExcluirServicoActionPerformed
+
+    private void btnSalvarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarServicoActionPerformed
+        // TODO add your handling code here:
+        if (txtDescricaoServico.getText().length() > 0) {
+            String desc = txtDescricaoServico.getText();
+            double valor = Double.parseDouble(txtValorServico.getText());
+//            System.out.println(mp.getId());
+            if (servico.getId() > -1) {
+                servico.setCreated(new Date());
+                servico.setDescricao(desc);
+                servico.setValor(valor);
+                DAO.save(servico);
+            } else {
+                servico.setId(Integer.parseInt(txtCodigoServico.getText()));
+
+                servico.setDescricao(desc);
+                servico.setValor(valor);
+                DAO.update(servico);
+            }
+            txtDescricaoServico.setText("");
+            txtValorServico.setText("");
+            txtCodigoServico.setText("");
+            updateTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "É necessario preencher o campo de descrição!", null, 0);
+        }
+    }//GEN-LAST:event_btnSalvarServicoActionPerformed
 
     public static void main(String args[]) {
 
@@ -218,8 +254,8 @@ public class ServicosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarServico;
     private javax.swing.JButton btnExcluirServico;
-    private javax.swing.JButton btnIncluirServico;
     private javax.swing.JButton btnSalvarServico;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCodigoServico;

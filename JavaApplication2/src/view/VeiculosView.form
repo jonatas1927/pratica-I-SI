@@ -27,9 +27,8 @@
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="btnSalvarVeiculo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnIncluirVeiculo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnExcluirVeiculo" min="-2" max="-2" attributes="0"/>
@@ -56,7 +55,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblClienteVeiculo" min="-2" pref="43" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtClienteVeiculo" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="txtClienteVeiculo" min="-2" pref="84" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSelectClienteVeiculo" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -70,18 +69,16 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtMarcaVeiculo" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnSelectMarcaVeiculo" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jcbMarca" min="-2" pref="159" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="lblSelectMarcaVeiculo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                               <Component id="lblAnoVeiculo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtAnoVeiculo" min="-2" pref="69" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtModeloVeiculo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtModeloVeiculo" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -102,11 +99,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblMarcaVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtMarcaVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblAnoVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtAnoVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnSelectMarcaVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblSelectMarcaVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jcbMarca" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -127,7 +123,7 @@
                   <Component id="btnSalvarVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="149" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="151" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -231,13 +227,11 @@
         <Property name="text" type="java.lang.String" value="Cor:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtMarcaVeiculo">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtCorVeiculo">
     </Component>
     <Component class="javax.swing.JButton" name="btnIncluirVeiculo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Incluir"/>
+        <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIncluirVeiculoActionPerformed"/>
@@ -255,7 +249,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSalvarVeiculo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Salvar Altera&#xe7;&#xf5;es"/>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarVeiculoActionPerformed"/>
@@ -278,10 +272,18 @@
         <Property name="text" type="java.lang.String" value="Modelo:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnSelectMarcaVeiculo">
+    <Component class="javax.swing.JComboBox" name="jcbMarca">
       <Properties>
-        <Property name="text" type="java.lang.String" value="..."/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbMarcaActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
