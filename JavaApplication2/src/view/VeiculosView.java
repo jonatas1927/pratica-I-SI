@@ -45,7 +45,7 @@ public class VeiculosView extends javax.swing.JFrame {
         lblCodigoVeiculo = new javax.swing.JLabel();
         lblCorVeiculo = new javax.swing.JLabel();
         txtCorVeiculo = new javax.swing.JTextField();
-        btnIncluirVeiculo = new javax.swing.JButton();
+        btnAlterarVeiculo = new javax.swing.JButton();
         lblMarcaVeiculo = new javax.swing.JLabel();
         lblAnoVeiculo = new javax.swing.JLabel();
         btnSalvarVeiculo = new javax.swing.JButton();
@@ -106,10 +106,10 @@ public class VeiculosView extends javax.swing.JFrame {
 
         lblCorVeiculo.setText("Cor:");
 
-        btnIncluirVeiculo.setText("Alterar");
-        btnIncluirVeiculo.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterarVeiculo.setText("Alterar");
+        btnAlterarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncluirVeiculoActionPerformed(evt);
+                btnAlterarVeiculoActionPerformed(evt);
             }
         });
 
@@ -147,10 +147,9 @@ public class VeiculosView extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalvarVeiculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnIncluirVeiculo)
+                        .addComponent(btnAlterarVeiculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluirVeiculo)
                         .addContainerGap())
@@ -223,7 +222,7 @@ public class VeiculosView extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluirVeiculo)
-                    .addComponent(btnIncluirVeiculo)
+                    .addComponent(btnAlterarVeiculo)
                     .addComponent(btnSalvarVeiculo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
@@ -232,7 +231,11 @@ public class VeiculosView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void clearInputs() {
+private void clearObj() {
+        veiculo = null;
+    }
+
+    public void clearInputs() {
         txtClienteVeiculo.setText(null);
         txtModeloVeiculo.setText(null);
         txtCorVeiculo.setText(null);
@@ -260,7 +263,11 @@ public void clearInputs() {
             jcbMarca.addItem(m.getDescricao());
         }
     }
-    private void btnIncluirVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirVeiculoActionPerformed
+
+    public void addClienteToInput(String idCliente) {
+        txtClienteVeiculo.setText(idCliente);
+    }
+    private void btnAlterarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarVeiculoActionPerformed
 
         Object codigo = tblVeiculos.getValueAt(tblVeiculos.getSelectedRow(), 0);
         veiculo = DAO.findByID(Integer.parseInt(codigo.toString()), "Veiculo");
@@ -271,24 +278,14 @@ public void clearInputs() {
         jcbMarca.setSelectedItem(veiculo.getMarcaVeiculo().getDescricao());
         txtAnoVeiculo.setText(veiculo.getAno());
 
-    }//GEN-LAST:event_btnIncluirVeiculoActionPerformed
+    }//GEN-LAST:event_btnAlterarVeiculoActionPerformed
 
     private void btnExcluirVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirVeiculoActionPerformed
         if (tblVeiculos.getSelectedRowCount() > 0) {
-            veiculo.setId((Integer) tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 0));
-
-            MarcaVeiculo marcaVeiculo = new MarcaVeiculo();
-//            marcaVeiculo = (MarcaVeiculo) DAOMarcaVeiculo.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 1).toString(), "Marca");
-            veiculo.setMarcaVeiculo(marcaVeiculo);
-
-            Cliente cliente = new Cliente();
-//            cliente = (Cliente) DAOCliente.findByID(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 5).toString(), "Marca");
-            veiculo.setCliente(cliente);
-
-            veiculo.setModelo(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 2).toString());
-            veiculo.setCor(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 3).toString());
-            veiculo.setAno(tblVeiculos.getModel().getValueAt(tblVeiculos.getSelectedRow(), 4).toString());
+            Object codigo = tblVeiculos.getValueAt(tblVeiculos.getSelectedRow(), 0);
+            veiculo = DAO.findByID(Integer.parseInt(codigo.toString()), "Veiculo");
             DAO.delete(veiculo);
+            clearObj();
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um Veículo para Excluir!");
         }
@@ -323,6 +320,7 @@ public void clearInputs() {
                 if (DAO.update(veiculo)) {
                     JOptionPane.showMessageDialog(null, "Atualizado com sucesso!", null, WIDTH);
                     updateTable();
+                    clearObj();
                 } else {
                     JOptionPane.showMessageDialog(null, "Houve um problema na atualização!", null, WIDTH);
                 }
@@ -330,7 +328,7 @@ public void clearInputs() {
                 if (DAO.save(veiculo)) {
                     JOptionPane.showMessageDialog(null, "Atualizado com sucesso!", null, WIDTH);
                     updateTable();
-
+                    clearObj();
                 } else {
                     JOptionPane.showMessageDialog(null, "Houve um problema na atualização!", null, WIDTH);
                 }
@@ -384,8 +382,8 @@ public void clearInputs() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarVeiculo;
     private javax.swing.JButton btnExcluirVeiculo;
-    private javax.swing.JButton btnIncluirVeiculo;
     private javax.swing.JButton btnSalvarVeiculo;
     private javax.swing.JButton btnSelectClienteVeiculo;
     private javax.swing.JScrollPane jScrollPane1;
