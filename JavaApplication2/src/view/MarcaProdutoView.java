@@ -112,6 +112,10 @@ public class MarcaProdutoView extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblMarcaProduto);
+        if (tblMarcaProduto.getColumnModel().getColumnCount() > 0) {
+            tblMarcaProduto.getColumnModel().getColumn(0).setMinWidth(50);
+            tblMarcaProduto.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
         lblDescricaoMarcaProduto.setText("Descrição:");
 

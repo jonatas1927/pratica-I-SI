@@ -37,7 +37,6 @@ public class VeiculosView extends javax.swing.JFrame {
         txtClienteVeiculo = new javax.swing.JTextField();
         btnSelectClienteVeiculo = new javax.swing.JButton();
         lblClienteVeiculo = new javax.swing.JLabel();
-        lblSelectMarcaVeiculo = new javax.swing.JLabel();
         lblSelectClienteVeiculo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVeiculos = new javax.swing.JTable();
@@ -60,8 +59,6 @@ public class VeiculosView extends javax.swing.JFrame {
         btnSelectClienteVeiculo.setText("...");
 
         lblClienteVeiculo.setText("Cliente:");
-
-        lblSelectMarcaVeiculo.setText("Selecione uma Marca");
 
         lblSelectClienteVeiculo.setText("Selecione um Cliente");
 
@@ -145,17 +142,8 @@ public class VeiculosView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvarVeiculo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAlterarVeiculo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluirVeiculo)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(2, 2, 2))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,8 +162,7 @@ public class VeiculosView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSelectClienteVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSelectClienteVeiculo)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(lblSelectClienteVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblModeloVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,12 +172,18 @@ public class VeiculosView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jcbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblSelectMarcaVeiculo)
-                                .addGap(59, 59, 59)
                                 .addComponent(lblAnoVeiculo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAnoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtModeloVeiculo))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalvarVeiculo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAlterarVeiculo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExcluirVeiculo)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -207,7 +200,6 @@ public class VeiculosView extends javax.swing.JFrame {
                     .addComponent(lblMarcaVeiculo)
                     .addComponent(lblAnoVeiculo)
                     .addComponent(txtAnoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSelectMarcaVeiculo)
                     .addComponent(jcbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -395,7 +387,6 @@ private void clearObj() {
     private javax.swing.JLabel lblMarcaVeiculo;
     private javax.swing.JLabel lblModeloVeiculo;
     private javax.swing.JLabel lblSelectClienteVeiculo;
-    private javax.swing.JLabel lblSelectMarcaVeiculo;
     private javax.swing.JTable tblVeiculos;
     private javax.swing.JTextField txtAnoVeiculo;
     private javax.swing.JTextField txtClienteVeiculo;
