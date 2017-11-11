@@ -104,4 +104,31 @@ public abstract class generic<T> {
         return list.get(0);
     }
 
+    public List<T> ArrToSearch(String nameClass, List<String> arrInfo) {
+        session.getTransaction();
+        int Params = 0;
+        List<String> listParams = new ArrayList<String>();
+        String query = " FROM " + nameClass + " where ";
+        for (int i = 0; i < arrInfo.size(); i++) {
+            if (i == 0) {
+                query += " " + arrInfo.get(i) + " LIKE :p" + Params + " ";
+                listParams.add(arrInfo.get(i + 1));
+            } else {
+                query += " AND " + arrInfo.get(i) + " LIKE :p" + Params + " ";
+                listParams.add(arrInfo.get(i + 1));
+            }
+            Params++;
+            i++;
+        }
+        System.out.println(query);
+        Query q = session.createQuery(query);
+        for (int i = 0; i < listParams.size(); i++) {
+            q.setParameter("p" + i, "%" + listParams.get(i) + "%");
+            System.out.println("p" + i + "   ---  " + listParams.get(i));
+        }
+        System.out.println(q.getNamedParameters());
+        List<T> list = q.list();
+        return list;
+    }
+
 }

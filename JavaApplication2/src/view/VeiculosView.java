@@ -15,21 +15,21 @@ import model.Veiculo;
  * @author Dionatan
  */
 public class VeiculosView extends javax.swing.JFrame {
-
+    
     DefaultTableModel model;
     VeiculoDAO DAO = new VeiculoDAO();
     MarcaVeiculoDAO DAOMarcaVeiculo = new MarcaVeiculoDAO();
     ClienteDAO DAOCliente = new ClienteDAO();
     Veiculo veiculo = new Veiculo();
     MarcaVeiculoDAO MDAO = new MarcaVeiculoDAO();
-
+    
     public VeiculosView() {
         initComponents();
         model = (DefaultTableModel) tblVeiculos.getModel();
         loadMarcas();
         updateTable();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -57,6 +57,11 @@ public class VeiculosView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnSelectClienteVeiculo.setText("...");
+        btnSelectClienteVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectClienteVeiculoActionPerformed(evt);
+            }
+        });
 
         lblClienteVeiculo.setText("Cliente:");
 
@@ -226,7 +231,7 @@ public class VeiculosView extends javax.swing.JFrame {
 private void clearObj() {
         veiculo = null;
     }
-
+    
     public void clearInputs() {
         txtClienteVeiculo.setText(null);
         txtModeloVeiculo.setText(null);
@@ -235,7 +240,7 @@ private void clearObj() {
         jcbMarca.setSelectedItem(null);
         txtAnoVeiculo.setText(null);
     }
-
+    
     public void updateTable() {
         model.setNumRows(0);
         for (Veiculo m : DAO.getAll("Veiculo")) {
@@ -249,18 +254,18 @@ private void clearObj() {
         }
         clearInputs();
     }
-
+    
     private void loadMarcas() {
         for (MarcaVeiculo m : MDAO.getAll("MarcaVeiculo")) {
             jcbMarca.addItem(m.getDescricao());
         }
     }
-
+    
     public void addClienteToInput(String idCliente) {
         txtClienteVeiculo.setText(idCliente);
     }
     private void btnAlterarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarVeiculoActionPerformed
-
+        
         Object codigo = tblVeiculos.getValueAt(tblVeiculos.getSelectedRow(), 0);
         veiculo = DAO.findByID(Integer.parseInt(codigo.toString()), "Veiculo");
         txtClienteVeiculo.setText("" + veiculo.getCliente().getId());
@@ -325,7 +330,7 @@ private void clearObj() {
                     JOptionPane.showMessageDialog(null, "Houve um problema na atualização!", null, WIDTH);
                 }
             }
-
+            
         }
     }//GEN-LAST:event_btnSalvarVeiculoActionPerformed
 
@@ -333,6 +338,17 @@ private void clearObj() {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbMarcaActionPerformed
 
+    private void btnSelectClienteVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectClienteVeiculoActionPerformed
+        JDClientes dialog = new JDClientes(this, true);
+        dialog.setVisible(true);
+//        dialog.getCodigo();
+//        System.out.println(dialog.getCodigo());
+        txtClienteVeiculo.setText("" + dialog.getCodigo());
+        /*7
+        diaglog precisa ser fechada com setvisible false para manter o metodo ativo;
+         */
+    }//GEN-LAST:event_btnSelectClienteVeiculoActionPerformed
+    
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -344,21 +360,21 @@ private void clearObj() {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(VeiculosView.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(VeiculosView.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(VeiculosView.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VeiculosView.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
