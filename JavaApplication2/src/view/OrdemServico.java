@@ -1,4 +1,9 @@
 package view;
+
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Dionatan
@@ -7,6 +12,8 @@ public class OrdemServico extends javax.swing.JFrame {
 
     public OrdemServico() {
         initComponents();
+        Format formatter = new SimpleDateFormat("dd/MM/yy");
+        txtDataEntOrdemServico.setText(formatter.format(new Date()));
     }
 
     @SuppressWarnings("unchecked")
@@ -20,7 +27,6 @@ public class OrdemServico extends javax.swing.JFrame {
         ckbStatusPaga = new javax.swing.JCheckBox();
         lblCodigoOrdemServico = new javax.swing.JLabel();
         lblDataEntOrdemServico = new javax.swing.JLabel();
-        txtDataEntOrdemServico = new javax.swing.JTextField();
         txtVeiculoOrdemServico = new javax.swing.JTextField();
         btnAlterarOrdemServico = new javax.swing.JButton();
         btnSelectVeiculoOrdemServico = new javax.swing.JButton();
@@ -29,7 +35,6 @@ public class OrdemServico extends javax.swing.JFrame {
         btnSalvarOrdemServico = new javax.swing.JButton();
         lblSelectVeiculoOrdemServico = new javax.swing.JLabel();
         txtClienteOrdemServico = new javax.swing.JTextField();
-        txtDataSaidaOrdemServico = new javax.swing.JTextField();
         btnExcluirOrdemServico = new javax.swing.JButton();
         txtCodigoOrdemServico = new javax.swing.JTextField();
         lblClienteOrdemServico = new javax.swing.JLabel();
@@ -39,6 +44,8 @@ public class OrdemServico extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         btnProdutosOrdemServico = new javax.swing.JButton();
         btnServicosOrdemServico = new javax.swing.JButton();
+        txtDataEntOrdemServico = new javax.swing.JFormattedTextField();
+        txtDataSaidaOrdemServico = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,75 +148,78 @@ public class OrdemServico extends javax.swing.JFrame {
             }
         });
 
+        txtDataEntOrdemServico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        txtDataEntOrdemServico.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        txtDataSaidaOrdemServico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        txtDataSaidaOrdemServico.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSalvarOrdemServico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAlterarOrdemServico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluirOrdemServico))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblClienteOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtClienteOrdemServico))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblVeiculoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtVeiculoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCodigoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCodigoOrdemServico)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblClienteOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSelectVeiculoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtClienteOrdemServico))
+                                .addComponent(lblSelectVeiculoOrdemServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(15, 15, 15)
+                                .addComponent(lblKmOrdemServico)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtKmOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblVeiculoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtVeiculoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblCodigoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCodigoOrdemServico)))
+                                .addGap(0, 21, Short.MAX_VALUE)
+                                .addComponent(lblDataEntOrdemServico)
+                                .addGap(5, 5, 5)
+                                .addComponent(txtDataEntOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnSelectVeiculoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblSelectVeiculoOrdemServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(15, 15, 15)
-                                        .addComponent(lblKmOrdemServico)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtKmOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 21, Short.MAX_VALUE)
-                                        .addComponent(lblDataEntOrdemServico)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDataEntOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblDataSaidaOrdemServico)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDataSaidaOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ckbPagoOrdemServico)))))))
+                                .addComponent(lblDataSaidaOrdemServico)
+                                .addGap(3, 3, 3)
+                                .addComponent(txtDataSaidaOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ckbPagoOrdemServico))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ckbStatusAberto)
+                                .addGap(18, 18, 18)
+                                .addComponent(ckbStatusEncerrada)
+                                .addGap(18, 18, 18)
+                                .addComponent(ckbStatusPaga))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnProdutosOrdemServico)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnServicosOrdemServico)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ckbStatusAberto)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckbStatusEncerrada)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckbStatusPaga))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnProdutosOrdemServico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnServicosOrdemServico)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,10 +230,10 @@ public class OrdemServico extends javax.swing.JFrame {
                         .addComponent(txtCodigoOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblCodigoOrdemServico)
                         .addComponent(lblDataEntOrdemServico)
-                        .addComponent(txtDataEntOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblDataSaidaOrdemServico)
-                        .addComponent(txtDataSaidaOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ckbPagoOrdemServico))
+                        .addComponent(ckbPagoOrdemServico)
+                        .addComponent(txtDataEntOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDataSaidaOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -287,7 +297,7 @@ public class OrdemServico extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -333,8 +343,8 @@ public class OrdemServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblVeiculoOrdemServico;
     private javax.swing.JTextField txtClienteOrdemServico;
     private javax.swing.JTextField txtCodigoOrdemServico;
-    private javax.swing.JTextField txtDataEntOrdemServico;
-    private javax.swing.JTextField txtDataSaidaOrdemServico;
+    private javax.swing.JFormattedTextField txtDataEntOrdemServico;
+    private javax.swing.JFormattedTextField txtDataSaidaOrdemServico;
     private javax.swing.JTextField txtKmOrdemServico;
     private javax.swing.JTextField txtVeiculoOrdemServico;
     // End of variables declaration//GEN-END:variables
