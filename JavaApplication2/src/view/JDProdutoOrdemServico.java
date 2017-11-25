@@ -8,6 +8,8 @@ package view;
 import controller.OrdemServicoDAO;
 import controller.ProdutoDAO;
 import controller.ProdutoOrdemServicoDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.OrdemServico;
 import model.Produto;
 import model.ProdutoOrdemServico;
@@ -17,10 +19,11 @@ import model.ProdutoOrdemServico;
  * @author thielke
  */
 public class JDProdutoOrdemServico extends javax.swing.JDialog {
-    
+
     ProdutoOrdemServico POS = new ProdutoOrdemServico();
     OrdemServico OrdSer = null;
     Produto prod = null;
+    DefaultTableModel model;
     /**
      * Creates new form JDProdutoOrdemServico
      */
@@ -29,7 +32,7 @@ public class JDProdutoOrdemServico extends javax.swing.JDialog {
     ProdutoOrdemServicoDAO DAO = new ProdutoOrdemServicoDAO();
     ProdutoDAO PDAO = new ProdutoDAO();
     OrdemServicoDAO OSDAO = new OrdemServicoDAO();
-    
+
     public JDProdutoOrdemServico(java.awt.Frame parent, boolean modal, int OS) {
         super(parent, modal);
         telaPai = parent;
@@ -37,6 +40,8 @@ public class JDProdutoOrdemServico extends javax.swing.JDialog {
         System.out.println("os: " + ordemServico);
         initComponents();
         txtCodigo.setText("0");
+        model = (DefaultTableModel) tblProdutos.getModel();
+        updateTable();
     }
 
     /**
@@ -110,8 +115,18 @@ public class JDProdutoOrdemServico extends javax.swing.JDialog {
         });
 
         jButton3.setText("Alterar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Excluir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Código:");
 
@@ -174,6 +189,19 @@ public class JDProdutoOrdemServico extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void updateTable() {
+        model.setNumRows(0);
+        for (ProdutoOrdemServico m : DAO.listarPorOrdem(ordemServico)) {;
+            model.addRow(new String[]{
+                "" + m.getId(),
+                m.getProduto().getCodigoOriginal(),
+                m.getProduto().getDescricao(),
+                m.getProduto().getMarca().getDescricao(),
+                String.valueOf(m.getQuantidade()),
+                String.valueOf(m.getPrecoProduto())
+            });
+        }
+    }
 
     public void limpaCampos() {
         txtPreco.setText("");
@@ -186,7 +214,7 @@ public class JDProdutoOrdemServico extends javax.swing.JDialog {
         int codProd = jdp.getCodigo();
         prod = PDAO.findByID(codProd, "Produto");
         OrdSer = OSDAO.findByID(ordemServico, "OrdemServico");
-        
+
         POS.setOrdemServico(OrdSer);
         POS.setProduto(prod);
         POS.setCusto(prod.getCusto());
@@ -201,7 +229,28 @@ public class JDProdutoOrdemServico extends javax.swing.JDialog {
         } else {
             DAO.save(POS);
         }
+        updateTable();
+        limpaCampos();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Object codigo = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        POS = DAO.findByID(Integer.parseInt(codigo.toString()), "ProdutoOrdemServico");
+        prod = POS.getProduto();
+        OrdSer = POS.getOrdemServico();
+        txtCodigo.setText(POS.getId() + "");
+        txtPreco.setText(POS.getPrecoProduto() + "");
+        txtQuantidade.setText(POS.getQuantidade() + "");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+
+        Object codigo = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        DAO.delete(DAO.findByID(Integer.parseInt(codigo.toString()), "ProdutoOrdemServico"));
+        updateTable();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

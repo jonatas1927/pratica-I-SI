@@ -380,6 +380,9 @@ public class OrdemServicoView extends javax.swing.JFrame {
 
     private void btnServicosOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicosOrdemServicoActionPerformed
         // TODO add your handling code here:
+            ordemServico = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0) + "");
+        JDServicoOrdemServico jdsos = new JDServicoOrdemServico(this, rootPaneCheckingEnabled, ordemServico);
+        jdsos.setVisible(true);
     }//GEN-LAST:event_btnServicosOrdemServicoActionPerformed
 
     private void btnSelectVeiculoOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectVeiculoOrdemServicoActionPerformed
