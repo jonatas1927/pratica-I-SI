@@ -154,7 +154,7 @@ public class JDVeiculo extends javax.swing.JDialog {
    public void updateTable(int id) {
 
         model.setNumRows(0);
-        for (Veiculo m : DAO.findByCliente(id)) {
+        for (Veiculo m : DAO.listEmployeesScalar(id)) {
             model.addRow(new String[]{"" + m.getId(),
                 m.getMarcaVeiculo().getDescricao(),
                 m.getModelo(),

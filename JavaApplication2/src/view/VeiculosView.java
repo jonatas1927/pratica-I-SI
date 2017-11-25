@@ -54,7 +54,7 @@ public class VeiculosView extends javax.swing.JFrame {
         lblModeloVeiculo = new javax.swing.JLabel();
         jcbMarca = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnSelectClienteVeiculo.setText("...");
         btnSelectClienteVeiculo.addActionListener(new java.awt.event.ActionListener() {

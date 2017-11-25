@@ -52,7 +52,7 @@ public class MarcaProdutoView extends javax.swing.JFrame {
         lblDescricaoMarcaProduto = new javax.swing.JLabel();
         btnMarcaProdutoAtiva = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtCodigoMarcaProduto.setEditable(false);
         txtCodigoMarcaProduto.addActionListener(new java.awt.event.ActionListener() {

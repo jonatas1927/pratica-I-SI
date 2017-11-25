@@ -59,11 +59,13 @@ public abstract class generic<T> {
      * @return list with one row or zero
      */
     public T findByID(Integer id, String nameClass) {
+        System.out.println("id: "+id);
         session.getTransaction();
         Query q = session.createQuery("FROM " + nameClass + " WHERE id = :p1");
         q.setParameter("p1", id);
         List<T> list = q.list();
 //        return list;
+System.out.println("list" +list.get(0).toString());
         return list.get(0);
     }
 

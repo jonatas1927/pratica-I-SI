@@ -19,6 +19,7 @@ public class OrdemServicoView extends javax.swing.JFrame {
     OrdemServico OS = new OrdemServico();
     VeiculoDAO VDAO = new VeiculoDAO();
     DefaultTableModel model;
+    int ordemServico = 0;
 
     public OrdemServicoView() {
         initComponents();
@@ -60,7 +61,7 @@ public class OrdemServicoView extends javax.swing.JFrame {
         txtDataEntOrdemServico = new javax.swing.JFormattedTextField();
         txtDataSaidaOrdemServico = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -304,8 +305,19 @@ public class OrdemServicoView extends javax.swing.JFrame {
         txtKmOrdemServico.setText("");
         txtVeiculoOrdemServico.setText("");
     }
-    private void btnAlterarOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarOrdemServicoActionPerformed
 
+    public int getOS() {
+        return ordemServico;
+    }
+    private void btnAlterarOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarOrdemServicoActionPerformed
+        Object codigo = jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+        OS = DAO.findByID(Integer.parseInt(codigo.toString()), "OrdemServico");
+        txtClienteOrdemServico.setText(OS.getVeiculo().getCliente().getNome());
+        txtCodigoOrdemServico.setText(OS.getId() + "");
+        txtDataEntOrdemServico.setText(OS.getEntrada() + "");
+        txtDataSaidaOrdemServico.setText(OS.getSaida() + "");
+        txtKmOrdemServico.setText(OS.getKm() + "");
+        txtVeiculoOrdemServico.setText(OS.getVeiculo().getId() + "");
     }//GEN-LAST:event_btnAlterarOrdemServicoActionPerformed
 
     private void btnSalvarOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarOrdemServicoActionPerformed
@@ -351,11 +363,19 @@ public class OrdemServicoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarOrdemServicoActionPerformed
 
     private void btnExcluirOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirOrdemServicoActionPerformed
-
+        Object codigo = jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+        OS = DAO.findByID(Integer.parseInt(codigo.toString()), "OrdemServico");
+        DAO.delete(OS);
+        updateTable();
     }//GEN-LAST:event_btnExcluirOrdemServicoActionPerformed
 
     private void btnProdutosOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosOrdemServicoActionPerformed
         // TODO add your handling code here:
+        if (Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0) + "") > 0) {
+            ordemServico = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0) + "");
+            JDProdutoOrdemServico pos = new JDProdutoOrdemServico(this, rootPaneCheckingEnabled, ordemServico);
+            pos.setVisible(true);
+        }
     }//GEN-LAST:event_btnProdutosOrdemServicoActionPerformed
 
     private void btnServicosOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicosOrdemServicoActionPerformed

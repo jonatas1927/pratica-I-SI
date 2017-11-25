@@ -41,7 +41,7 @@ public class ServicosView extends javax.swing.JFrame {
         btnSalvarServico = new javax.swing.JButton();
         btnAlterarServico = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblServicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
