@@ -1,12 +1,24 @@
 package view;
+
+import controller.ClienteDAO;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+
 /**
  *
  * @author Dionatan
  */
 public class ClientesView extends javax.swing.JFrame {
 
+    Cliente cli = new Cliente();
+    DefaultTableModel model;
+    ClienteDAO DAO = new ClienteDAO();
+
     public ClientesView() {
         initComponents();
+        model = (DefaultTableModel) tblClientes.getModel();
+        txtCodigoCliente.setText(0 + "");
+        updateTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -132,6 +144,11 @@ public class ClientesView extends javax.swing.JFrame {
         btgTipoPessoaCliente.add(rbtnPessoaFisicaCliente);
         rbtnPessoaFisicaCliente.setSelected(true);
         rbtnPessoaFisicaCliente.setText("Física");
+        rbtnPessoaFisicaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnPessoaFisicaClienteActionPerformed(evt);
+            }
+        });
         rbtnPessoaFisicaCliente.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 HabilitaDesabilitaCamposTipoPessoa(evt);
@@ -356,17 +373,19 @@ public class ClientesView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCpfCliente)
-                            .addComponent(lblRgCliente)
-                            .addComponent(txtCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRgCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblRgCliente)
+                                .addComponent(txtCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRgCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCnpjCliente)
-                            .addComponent(lblInscricaoEstadualCliente)
-                            .addComponent(txtCnpjCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtInscricaoEstadualCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblInscricaoEstadualCliente)
+                                .addComponent(txtCnpjCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtInscricaoEstadualCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jSeparator1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -380,17 +399,166 @@ public class ClientesView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void updateTable() {
+        model.setNumRows(0);
+        for (Cliente m : DAO.getAll("Cliente")) {
+            System.out.println(m.toString());
+            model.addRow(new String[]{"" + m.getId(), m.getNome(), m.getCidade(), "" + m.getCep(), m.getTelefone1()});
+        }
+    }
 
+    public void limpaCampos() {
+        ckbAtivoCliente.setSelected(true);
+        txtCEPCliente.setText("");
+        txtCidadeCliente.setText("");
+        txtCnpjCliente.setText("");
+        txtCodigoCliente.setText(0 + "");
+        txtCpfCliente.setText("");
+        txtEnderecoCliente.setText("");
+        txtFone1Cliente.setText("");
+        txtFone2Cliente.setText("");
+        txtFone3Cliente.setText("");
+        txtInscricaoEstadualCliente.setText("");
+        txtNomeCliente.setText("");
+        txtNumeroEnderecoCliente.setText("");
+        txtRgCliente.setText("");
+        txtUfCliente.setText("");
+        txtbairroCliente.setText("");
+        rbtnPessoaFisicaCliente.setSelected(true);
+    }
+
+    public void AtualizaCampos() {
+        ckbAtivoCliente.setSelected(cli.isAtivo());
+        txtCidadeCliente.setText(cli.getCidade());
+        if (cli.isTipo_pessoa()) {
+            txtCpfCliente.setText(cli.getCpf_cnpj());
+            rbtnPessoaFisicaCliente.setSelected(true);
+            rbtnPessoaJuridicaCliente.setSelected(false);
+        } else {
+            txtCnpjCliente.setText(cli.getCpf_cnpj());
+            rbtnPessoaFisicaCliente.setSelected(false);
+            rbtnPessoaJuridicaCliente.setSelected(true);
+        }
+        txtCodigoCliente.setText(cli.getId() + "");
+        txtEnderecoCliente.setText(cli.getEndereco());
+        txtFone1Cliente.setText(cli.getTelefone1());
+        txtFone2Cliente.setText(cli.getTelefone2());
+        txtFone3Cliente.setText(cli.getTelefone3());
+        txtInscricaoEstadualCliente.setText(cli.getInscricao_estadual());
+        txtNomeCliente.setText(cli.getNome());
+        txtNumeroEnderecoCliente.setText(cli.getNumero());
+        txtRgCliente.setText(cli.getRg());
+        txtUfCliente.setText(cli.getUf());
+        txtbairroCliente.setText(cli.getBairro());
+    }
     private void btnSalvarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarClienteActionPerformed
-        
+        int i = 0;
+        System.out.println(i);
+        i++;
+        if (Integer.parseInt(txtCodigoCliente.getText()) > 0) {
+            cli.setId(Integer.parseInt(txtCodigoCliente.getText()));
+        }
+        System.out.println(i);
+        i++;
+        cli.setAtivo(ckbAtivoCliente.isSelected());
+        if (txtbairroCliente.getText().length() > 0) {
+            cli.setBairro(txtbairroCliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (txtCEPCliente.getText().length() > 0) {
+            cli.setCep(txtCEPCliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (rbtnPessoaFisicaCliente.isSelected()) {
+            if (txtCpfCliente.getText().length() > 0) {
+                cli.setCpf_cnpj(txtCpfCliente.getText());
+            }
+            cli.setTipo_pessoa(true);
+            if (txtRgCliente.getText().length() > 0) {
+                cli.setRg(txtRgCliente.getText());
+            }
+        } else if (rbtnPessoaJuridicaCliente.isSelected()) {
+            if (txtCnpjCliente.getText().length() > 0) {
+                cli.setCpf_cnpj(txtCnpjCliente.getText());
+            }
+            cli.setTipo_pessoa(false);
+            if (txtInscricaoEstadualCliente.getText().length() > 0) {
+                cli.setInscricao_estadual(txtInscricaoEstadualCliente.getText());
+            }
+        }
+        System.out.println(i);
+        i++;
+        if (txtEnderecoCliente.getText().length() > 0) {
+            cli.setEndereco(txtEnderecoCliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (txtNumeroEnderecoCliente.getText().length() > 0) {
+            cli.setNumero(txtNumeroEnderecoCliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (txtCodigoCliente.getText().length() > 0) {
+            cli.setId(Integer.parseInt(txtCodigoCliente.getText()));
+        }
+        System.out.println(i);
+        i++;
+        if (txtNomeCliente.getText().length() > 0) {
+            cli.setNome(txtNomeCliente.getText());
+        }
+        System.out.println(i);
+        i++;
+//        String tel = txtFone1Cliente.getText() + "||" + txtFone2Cliente.getText() + "||" + txtFone3Cliente.getText();
+        if (txtFone1Cliente.getText().length() > 0) {
+            cli.setTelefone1(txtFone1Cliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (txtFone2Cliente.getText().length() > 0) {
+            cli.setTelefone2(txtFone2Cliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (txtFone3Cliente.getText().length() > 0) {
+            cli.setTelefone3(txtFone3Cliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (txtCidadeCliente.getText().length() > 0) {
+            cli.setCidade(txtCidadeCliente.getText());
+        }
+        System.out.println(i);
+        i++;
+        if (txtUfCliente.getText().length() > 0) {
+            cli.setUf(txtUfCliente.getText());
+        }
+        cli.setAtivo(ckbAtivoCliente.isSelected());
+        System.out.println(i);
+        i++;
+        System.out.println("ashudhasudhasuhduashduashduashudahsudahsudhasudhaushu");
+        System.out.println(cli.toString());
+        if (cli.getId() == 0) {
+            DAO.save(cli);
+        } else {
+            DAO.update(cli);
+        }
+        limpaCampos();
+        updateTable();
     }//GEN-LAST:event_btnSalvarClienteActionPerformed
 
     private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
-        
+        Object codigo = tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
+        DAO.delete(DAO.findByID(Integer.parseInt(codigo.toString()), "Cliente"));
+        AtualizaCampos();
+        updateTable();
     }//GEN-LAST:event_btnExcluirClienteActionPerformed
 
     private void btnAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarClienteActionPerformed
-        
+        Object codigo = tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
+        cli = DAO.findByID(Integer.parseInt(codigo.toString()), "Cliente");
+        AtualizaCampos();
     }//GEN-LAST:event_btnAlterarClienteActionPerformed
 
     private void HabilitaDesabilitaCamposTipoPessoa(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_HabilitaDesabilitaCamposTipoPessoa
@@ -414,6 +582,10 @@ public class ClientesView extends javax.swing.JFrame {
             txtRgCliente.setEnabled(false);
         }
     }//GEN-LAST:event_HabilitaDesabilitaCamposTipoPessoa
+
+    private void rbtnPessoaFisicaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPessoaFisicaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnPessoaFisicaClienteActionPerformed
 
     public static void main(String args[]) {
 

@@ -27,7 +27,9 @@ public class MarcaProdutoView extends javax.swing.JFrame {
     public MarcaProdutoView() {
         initComponents();
         model = (DefaultTableModel) tblMarcaProduto.getModel();
+        btnMarcaProdutoAtiva.setSelected(true);
         updateTable();
+        txtCodigoMarcaProduto.setText("" + 0);
     }
 
     /**
@@ -188,6 +190,12 @@ public class MarcaProdutoView extends javax.swing.JFrame {
             model.addRow(new String[]{"" + m.getId(), m.getDescricao()});
         }
     }
+
+    public void limpaCampos() {
+        txtCodigoMarcaProduto.setText("0");
+        txtDescricaoMarcaProduto.setText("");
+        btnMarcaProdutoAtiva.setSelected(true);
+    }
     private void txtCodigoMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoMarcaProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoMarcaProdutoActionPerformed
@@ -195,22 +203,18 @@ public class MarcaProdutoView extends javax.swing.JFrame {
     private void btnIncluirMarcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirMarcaProdutoActionPerformed
         // TODO add your handling code here:
         if (txtDescricaoMarcaProduto.getText().length() > 0) {
-            String nome = txtDescricaoMarcaProduto.getText();
-            boolean ativa = btnMarcaProdutoAtiva.isSelected();
-            System.out.println(mp.getId());
-            if (mp.getId() > -1) {
-                mp.setDescricao(nome);
-                mp.setAtivo(ativa);
-                mp.setCreated(new Date());
-                DAO.save(mp);
-            } else {
-                mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
-                mp.setDescricao(nome);
-                mp.setAtivo(ativa);
+            mp.setId(Integer.parseInt(txtCodigoMarcaProduto.getText()));
+            mp.setDescricao(txtDescricaoMarcaProduto.getText());
+            mp.setAtivo(btnMarcaProdutoAtiva.isSelected());
+
+            if (mp.getId() > 0) {
                 DAO.update(mp);
+            } else {
+                DAO.save(mp);
             }
-            txtDescricaoMarcaProduto.setText("");
-            btnMarcaProdutoAtiva.setSelected(false);
+            mp = null;
+            mp = new MarcaProduto();
+            limpaCampos();
             updateTable();
         } else {
             JOptionPane.showMessageDialog(null, "É necessario preencher o campo de descrição!", null, 0);

@@ -186,7 +186,7 @@ public class JDClientes extends javax.swing.JDialog {
                         m.getNome(),
                         m.getEndereco(),
                         m.getBairro(),
-                        m.getTelefone(),
+                        m.getTelefone1() + m.getTelefone2() + m.getTelefone3(),
                         m.getCpf_cnpj(),
                         m.getRg()
                     });
@@ -202,7 +202,7 @@ public class JDClientes extends javax.swing.JDialog {
                         m.getNome(),
                         m.getEndereco(),
                         m.getBairro(),
-                        m.getTelefone(),
+                        m.getTelefone1() + m.getTelefone2() + m.getTelefone3(),
                         m.getCpf_cnpj(),
                         m.getRg()
                     });

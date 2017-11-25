@@ -188,18 +188,22 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblCpfCliente" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRgCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCpfCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtRgCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblRgCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCpfCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRgCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblCnpjCliente" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblInscricaoEstadualCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCnpjCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtInscricaoEstadualCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblInscricaoEstadualCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCnpjCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtInscricaoEstadualCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Component id="jSeparator1" max="32767" attributes="0"/>
@@ -349,6 +353,7 @@
         <Property name="text" type="java.lang.String" value="F&#xed;sica"/>
       </Properties>
       <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnPessoaFisicaClienteActionPerformed"/>
         <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="HabilitaDesabilitaCamposTipoPessoa"/>
       </Events>
     </Component>
